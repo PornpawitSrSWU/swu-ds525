@@ -40,7 +40,7 @@ def process(cur, conn, filepath):
             data = json.loads(f.read())
             for each in data:
                 # Print some sample data
-                print(each["id"], each["type"], each["actor"]["login"])
+                print(each["id"], each["type"], each["actor"]["login"], each["payload"]["push_id"])
 
                 # Insert data into tables here
 

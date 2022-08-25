@@ -1,11 +1,17 @@
 import psycopg2
 
 
-table_drop = "DROP TABLE IF EXISTS songplays"
+table_drop = "DROP TABLE IF EXISTS songplays;DROP TABLE IF EXISTS songplays2"
 
 table_create = """
-    CREATE TABLE IF NOT EXISTS xxx (
-    )
+    CREATE TABLE IF NOT EXISTS songplays (
+        ID INTEGER PRIMARY KEY,
+        Name VARCHAR(50) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS songplays2 (
+        ID INTEGER PRIMARY KEY,
+        Name VARCHAR(50) NOT NULL
+    ) 
 """
 
 create_table_queries = [
@@ -16,7 +22,7 @@ drop_table_queries = [
 ]
 
 
-def drop_tables(cur: PostgresCursor, conn: PostgresConn) -> None:
+def drop_tables(cur, conn) -> None:
     """
     Drops each table using the queries in `drop_table_queries` list.
     """
@@ -25,7 +31,7 @@ def drop_tables(cur: PostgresCursor, conn: PostgresConn) -> None:
         conn.commit()
 
 
-def create_tables(cur: PostgresCursor, conn: PostgresConn) -> None:
+def create_tables(cur, conn) -> None:
     """
     Creates each table using the queries in `create_table_queries` list.
     """
