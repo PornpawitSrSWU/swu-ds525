@@ -2,14 +2,17 @@ import psycopg2
 
 
 table_drop = """
-    DROP TABLE IF EXISTS tbl_author;
+    DROP TABLE IF EXISTS tbl_event;
+    DROP TABLE IF EXISTS tbl_actor;
+    DROP TABLE IF EXISTS tbl_payload;
+    DROP TABLE IF EXISTS tbl_commit;
     DROP TABLE IF EXISTS tbl_issue;
     DROP TABLE IF EXISTS tbl_org;
     DROP TABLE IF EXISTS tbl_author;
-    DROP TABLE IF EXISTS tbl_commit;
-    DROP TABLE IF EXISTS tbl_payload;
-    DROP TABLE IF EXISTS tbl_actor;
-    DROP TABLE IF EXISTS tbl_event;
+
+  
+
+    
 
 """
 
