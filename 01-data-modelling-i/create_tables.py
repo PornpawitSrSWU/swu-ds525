@@ -72,7 +72,7 @@ table_create = """
     );
 
     CREATE TABLE IF NOT EXISTS tbl_event (
-        event_id INTEGER NOT NULL,
+        event_id BIGINT NOT NULL,
         event_type VARCHAR(250),
         actor_id INTEGER,
         payload_id INTEGER,

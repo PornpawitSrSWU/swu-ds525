@@ -97,13 +97,26 @@ def process(cur, conn, filepath):
                     ON CONFLICT (actor_id) DO NOTHING
 
                     """
-                   # Insert data into tables here
-                  # Insert data into tables here
-               
+                   
+                cur.execute(insert_statement)
+
+                # Insert data into tables here
+                insert_statement = f"""
+                    INSERT INTO tbl_event (
+                        event_id,
+                        event_type,
+                        actor_id,
+                        
+                        event_public,
+                        event_craete_at
+                       
+                        
+                    ) VALUES ({each["id"]},'({each["type"]}',{each["actor"]["id"]},'{each["public"]}','{each["created_at"]}'
+                              
+                              )
+                    ON CONFLICT (event_id) DO NOTHING
+                    """
                 # print(insert_statement)
-                
-                
-             
                 cur.execute(insert_statement)
 
                 conn.commit()
