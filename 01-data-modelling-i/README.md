@@ -1,7 +1,7 @@
 # Data Modeling I
 
 ## Data Diagram
-<img src="https://drive.google.com/file/d/1jvvqc0eaHzsRfq44NreOxAW-Qt19jWv0/view?usp=sharing" height="60" width="60" >
+<img src="/workspace/swu-ds525/01-data-modelling-i/data modeling i diagram.jpg" height="60" width="60" >
 
 ## Getting Started
 
