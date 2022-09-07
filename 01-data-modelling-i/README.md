@@ -1,7 +1,7 @@
 # Data Modeling I
 
 ## Data Diagram
-![alt text](https://drive.google.com/file/d/1jvvqc0eaHzsRfq44NreOxAW-Qt19jWv0/view?usp=sharing)
+<img src="https://drive.google.com/file/d/1jvvqc0eaHzsRfq44NreOxAW-Qt19jWv0/view?usp=sharing" height="60" width="60" >
 
 ## Getting Started
 
