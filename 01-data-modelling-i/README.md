@@ -36,3 +36,17 @@ To shutdown, press Ctrl+C and run:
 ```sh
 docker-compose down
 ```
+## Create Table
+
+Run create_tables.py file to create tables
+
+```sh
+python create_tables.py
+```
+## Insert data from data folder to tables
+
+Run etl.py file to insert data
+
+```sh
+python etl.py
+```
