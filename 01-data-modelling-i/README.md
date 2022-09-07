@@ -1,7 +1,7 @@
 # Data Modeling I
 
 ## Data Diagram
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/01-data-modelling-i/data%20modeling%20i%20diagram.jpg" height="60" width="60" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/01-data-modelling-i/data%20modeling%20i%20diagram.jpg" height="700" width="1000" >
 
 ## Getting Started
 
