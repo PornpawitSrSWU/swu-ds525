@@ -1,5 +1,8 @@
 # Data Modeling I
 
+## Data Diagram
+![alt text](https://drive.google.com/file/d/13CaI6fwhJHbYYSU1lxXpHbo5p2Tb5D5R/view?usp=sharing)
+
 ## Getting Started
 
 ```sh

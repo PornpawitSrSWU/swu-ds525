@@ -39,50 +39,25 @@ def process(cur, conn, filepath):
         with open(datafile, "r") as f:
             data = json.loads(f.read())
             for each in data:
-                # Print some sample data
-                 
-                if each["type"] == "IssueCommentEvent":
-                    print(
-                        each["id"], 
-                        each["type"],
-                        each["actor"]["id"],
-                        each["actor"]["login"],
-                        each["repo"]["id"],
-                        each["repo"]["name"],
-                        each["created_at"],
-                        each["payload"]["issue"]["url"],
-                        each["org"])
-                    
-                    insert_statement = f"""
-                    INSERT INTO tbl_org (
-                        org_id,
-                        org_login,
-                        org_gravatar_id,
-                        org_url
-                    ) VALUES ({each["org"]["id"]},
-                            '{each["org"]["login"]}',
-                            '{each["org"]["gravatar_id"]}',
-                            '{each["org"]["url"]}'
+                #insert tbl_org
+                if each["type"] == "IssueCommentEvent" or each["type"] == "PullRequestEvent" or each["type"] == "PullRequestReviewEvent" or each["type"] == "PullRequestReviewCommentEvent":  
+                     if "org" in each:
+                        insert_statement = f"""
+                        INSERT INTO tbl_org (
+                            org_id,
+                            org_login,
+                            org_url
+                        ) VALUES ({each["org"]["id"]},
+                                '{each["org"]["login"]}',
+                                '{each["org"]["url"]}'
                             )
-                    ON CONFLICT (org_id) DO NOTHING
+                        ON CONFLICT (org_id) DO NOTHING
 
-                    """
-                    cur.execute(insert_statement)
-                    
-                else:
-                    print(
-                        each["id"], 
-                        each["type"],
-                        each["actor"]["id"],
-                        each["actor"]["login"],
-                        each["repo"]["id"],
-                        each["repo"]["name"],
-                        each["created_at"],
-                       
-                    )
-                #print(each["org"]["login"])
-
-                  # Insert data into tables here
+                        """
+                        cur.execute(insert_statement)
+ 
+               
+                #insert tbl_actor
                 insert_statement = f"""
                     INSERT INTO tbl_actor (
                         actor_id,
@@ -100,24 +75,73 @@ def process(cur, conn, filepath):
                    
                 cur.execute(insert_statement)
 
-                # Insert data into tables here
-                insert_statement = f"""
-                    INSERT INTO tbl_event (
-                        event_id,
-                        event_type,
-                        actor_id,
-                        
-                        event_public,
-                        event_craete_at
+                #insert tbl_payload
+                if "repo" in each:
+                    insert_statement = f"""
+                        INSERT INTO tbl_repo (
+                                        repo_id,
+                                        repo_name,
+                                        repo_url
+                                ) VALUES ('{each["repo"]["id"]}',
+                                        '{each["repo"]["name"]}',
+                                        '{each["repo"]["url"]}'
+                               )
+                                ON CONFLICT (repo_id) DO NOTHING
+                            """
+                    cur.execute(insert_statement)
+
+
+
+                #insert tbl_event
+                if each["type"] == "IssueCommentEvent" or each["type"] == "PullRequestEvent" or each["type"] == "PullRequestReviewEvent" or each["type"] == "PullRequestReviewCommentEvent":  
+                    if "org" in each:
+                        insert_statement = f"""
+                            INSERT INTO tbl_event (
+                                event_id,
+                                event_type,
+                                actor_id,
+                                org_id,
+                                repo_id,
+                                event_public,
+                                event_craete_at
                        
                         
-                    ) VALUES ({each["id"]},'({each["type"]}',{each["actor"]["id"]},'{each["public"]}','{each["created_at"]}'
+                            ) VALUES ({each["id"]},
+                                    '{each["type"]}',
+                                    {each["actor"]["id"]},
+                                    {each["org"]["id"]},
+                                    {each["repo"]["id"]},
+                                    '{each["public"]}',
+                                    '{each["created_at"]}'
+                              
+                                )
+                            ON CONFLICT (event_id) DO NOTHING
+                            """
+                        # print(insert_statement)
+                        cur.execute(insert_statement)
+                    
+                else:
+                    insert_statement = f"""
+                        INSERT INTO tbl_event (
+                            event_id,
+                            event_type,
+                            actor_id,
+                            repo_id,
+                            event_public,
+                            event_craete_at
+                       
+                        
+                        ) VALUES ({each["id"]},
+                                '{each["type"]}',
+                                 {each["actor"]["id"]},
+                                 {each["repo"]["id"]},
+                                 '{each["public"]}',
+                                 '{each["created_at"]}'
                               
                               )
-                    ON CONFLICT (event_id) DO NOTHING
-                    """
-                # print(insert_statement)
-                cur.execute(insert_statement)
+                        ON CONFLICT (event_id) DO NOTHING
+                        """
+                    cur.execute(insert_statement)
 
                 conn.commit()
 
