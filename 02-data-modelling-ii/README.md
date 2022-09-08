@@ -46,4 +46,4 @@ python etl.py
 
 ## Result .png
 
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/02-data-modelling-ii/Screenshot%20(140).png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/02-data-modelling-ii/Screenshot%20(140).png" height="200" width="500" >
