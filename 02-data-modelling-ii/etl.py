@@ -6,20 +6,20 @@ from typing import List
 from cassandra.cluster import Cluster
 
 
-table_drop = "DROP TABLE events"
+table_drop = "DROP TABLE events_top"
 
 table_create = """
-    CREATE TABLE IF NOT EXISTS events
+    CREATE TABLE IF NOT EXISTS events_top
     (
-        id text,
         type text,
-        public boolean,
+        number_of_events int,
         PRIMARY KEY (
-            id,
-            type
+            type,number_of_events
         )
-    )
+    );
 """
+
+
 
 create_table_queries = [
     table_create,
@@ -65,19 +65,32 @@ def process(session, filepath):
     # Get list of files from filepath
     all_files = get_files(filepath)
 
+    event_list =[]
+
     for datafile in all_files:
         with open(datafile, "r") as f:
             data = json.loads(f.read())
             for each in data:
-                # Print some sample data
-                print(each["id"], each["type"], each["actor"]["login"])
+                #append type into list
+                event_list.append(each["type"])
 
-                # Insert data into tables here
+    #Count data           
+    for event in [ele for ind, ele in enumerate(event_list,1) if ele not in event_list[ind:]]:
+       
+
+        # Insert data into events_top tables
+        query = f"""
+            INSERT INTO events_top (type, number_of_events) VALUES ('{event}', {event_list.count(event)})
+            """
+        session.execute(query)         
+                
+
+
 
 
 def insert_sample_data(session):
     query = f"""
-    INSERT INTO events (id, type, public) VALUES ('23487929637', 'IssueCommentEvent', true)
+    INSERT INTO events_top (type, number_of_events) VALUES ('{each["type"]}', 2)
     """
     session.execute(query)
 
@@ -106,13 +119,12 @@ def main():
     drop_tables(session)
     create_tables(session)
 
-    # process(session, filepath="../data")
-    insert_sample_data(session)
+    process(session, filepath="../data")
+    #insert_sample_data(session)
 
     # Select data in Cassandra and print them to stdout
     query = """
-    SELECT * from events WHERE id = '23487929637' AND type = 'IssueCommentEvent'
-    """
+    SELECT * from events_top """
     try:
         rows = session.execute(query)
     except Exception as e:
