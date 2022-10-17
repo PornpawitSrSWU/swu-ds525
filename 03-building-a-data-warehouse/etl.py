@@ -1,12 +1,30 @@
 import psycopg2
 
 
-drop_table_queries = [
-    "DROP TABLE IF EXISTS events",
+drop_table_queries = [ """
+    DROP TABLE IF EXISTS staging_events;
+    DROP TABLE IF EXISTS events;
+    DROP TABLE IF EXISTS actors;
+    DROP TABLE IF EXISTS org;
+    """
 ]
 create_table_queries = [
     """
     CREATE TABLE IF NOT EXISTS staging_events (
+        id text,
+        type text,
+        actor_id text,
+        actor_name text,
+        actor_url text,
+        repo_id text,
+        repo_name text,
+        repo_url text,
+        public boolean,
+        created_at text
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS events (
         id text,
         type text,
         actor text,
@@ -15,14 +33,23 @@ create_table_queries = [
     )
     """,
     """
-    CREATE TABLE IF NOT EXISTS events (
-        id int
+    CREATE TABLE IF NOT EXISTS actors (
+        id text,
+        name text,
+        url text
     )
     """,
+    """
+     CREATE TABLE IF NOT EXISTS org (
+        org_id text NOT NULL,
+        org_login text,
+        org_url text
+    )""",
+
 ]
 copy_table_queries = [
     """
-    COPY staging_events FROM 's3://zkan-swu-labs/github_events_01.json'
+    COPY staging_events FROM 's3://pornpawits-swu-labs/github_events_01.json'
     CREDENTIALS 'aws_iam_role=arn:aws:iam::377290081649:role/LabRole'
     JSON 's3://zkan-swu-labs/events_json_path.json'
     REGION 'us-east-1'
