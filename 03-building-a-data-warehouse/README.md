@@ -22,6 +22,7 @@ pip install -r requirements.txt
     port = "5439"
 
 ## config Config etl.py file to copy the data from S3 to Redshift
+```sh
 copy_table_queries = [
     """
     COPY staging_events FROM 's3://pornpawitslab3/github_events_01.json'
@@ -30,6 +31,7 @@ copy_table_queries = [
     REGION 'us-east-1'
     """,
 ]
+```
 
 ## Run etl.py file to create tables and insert data to tables
 
