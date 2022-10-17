@@ -49,9 +49,9 @@ create_table_queries = [
 ]
 copy_table_queries = [
     """
-    COPY staging_events FROM 's3://pornpawits-swu-labs/github_events_01.json'
+    COPY staging_events FROM 's3://pornpawits-swu-lab3/github_events_01.json'
     CREDENTIALS 'aws_iam_role=arn:aws:iam::377290081649:role/LabRole'
-    JSON 's3://zkan-swu-labs/events_json_path.json'
+    JSON 's3://pornpawits-swu-lab3/events_json_path.json'
     REGION 'us-east-1'
     """,
 ]
