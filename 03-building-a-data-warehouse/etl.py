@@ -19,6 +19,9 @@ create_table_queries = [
         repo_id text,
         repo_name text,
         repo_url text,
+        org_id text,
+        org_login text,
+        org_url text,
         public boolean,
         created_at text
     )
@@ -41,9 +44,9 @@ create_table_queries = [
     """,
     """
      CREATE TABLE IF NOT EXISTS org (
-        org_id text NOT NULL,
-        org_login text,
-        org_url text
+        id text NOT NULL,
+        login text,
+        url text
     )""",
 
 ]
@@ -56,18 +59,24 @@ copy_table_queries = [
     """,
 ]
 insert_table_queries = [
-    """
-    INSERT INTO
-      events (
-        id
-      )
-    SELECT
-      DISTINCT id,
-    FROM
-      staging_events
-    WHERE
-      id NOT IN (SELECT DISTINCT id FROM events)
-    """,
+        """
+            INSERT INTO events ( id, type, actor, repo, created_at )
+            SELECT DISTINCT id, type, actor_name, repo_name, created_at
+            FROM staging_events
+            WHERE id NOT IN (SELECT DISTINCT id FROM events)
+        """,
+        """
+            INSERT INTO actors ( id, name, url )
+            SELECT DISTINCT actor_id, actor_name, actor_url
+            FROM staging_events
+            WHERE actor_id NOT IN (SELECT DISTINCT id FROM actors)
+        """,
+        """
+            INSERT INTO org ( id, login, url )
+            SELECT DISTINCT org_id, org_name, org_url
+            FROM staging_events
+            WHERE id NOT IN (SELECT DISTINCT id FROM id)
+        """,
 ]
 
 
@@ -105,12 +114,12 @@ def main():
     conn = psycopg2.connect(conn_str)
     cur = conn.cursor()
 
-    # drop_tables(cur, conn)
-    # create_tables(cur, conn)
-    # load_tables(cur, conn)
-    # insert_tables(cur, conn)
+    drop_tables(cur, conn)
+    create_tables(cur, conn)
+    load_staging_tables(cur, conn)
+    insert_tables(cur, conn)
 
-    query = "select * from category"
+    query = "select * from events"
     cur.execute(query)
     records = cur.fetchall()
     for row in records:
