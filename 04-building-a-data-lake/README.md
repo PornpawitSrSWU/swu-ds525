@@ -34,9 +34,6 @@ docker-compose up
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic5.png" height="350" width="700" >
 
 ## Check output data in folders
-actors : actors
-repo : repo
-org : org
-events : events
+actors : actors, repo : repo, org : org, events : events
 
 
