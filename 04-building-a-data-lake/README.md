@@ -22,16 +22,16 @@ docker-compose up
 
 ## Excute notebook etl.local.ipynb
 ## Result in jupyter
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic1.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic1.png" height="350" width="700" >
 
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic2.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic2.png" height="350" width="700" >
 
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic3.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic3.png" height="350" width="700" >
 
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic4.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic4.png" height="350" width="700" >
 
 ## Result after join tables
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic5.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/04-building-a-data-lake/pic5.png" height="350" width="700" >
 
 ## Check output data in folders
 actors : actors
