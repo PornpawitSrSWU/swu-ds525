@@ -34,3 +34,23 @@ docker-compose up
  จากนั้นให้ไปที่ tab admin เลือก  connection
  และเพิ่ม connection
  <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot22.png" height="700" width="1000" >
+
+## data schedule
+ให้เข้าที่ tab Dags แล้ว etl โดยเราสามารถตรวจสอบการทำงานได้ในหน้านี้
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot21.png" height="700" width="1000" >
+
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot20.png" height="700" width="1000" >
+
+ซึ่งถ้า schedule ทำงานปกติจะเป็นสีเขียว
+
+## check data
+สามารถเช็คว่า data ว่าเข้าสู่ database เราหรือไม่ ให้เข้าที่ postgres
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot.png" height="700" width="1000" >
+
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot16.png" height="700" width="1000" >
+
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot17.png" height="700" width="1000" >
+
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot18.png" height="700" width="1000" >
+
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot19.png" height="700" width="1000" >
