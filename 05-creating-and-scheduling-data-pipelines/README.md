@@ -1,4 +1,14 @@
 # Creating and Scheduling Data Pipelines
+## Data Diagram
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/01-data-modelling-i/data%20modeling%20i%20diagram.jpg" height="700" width="1000" >
+
+
+## Get start
+เริ่มต้น
+```sh
+cd 05-creating-and-scheduling-data-pipelines
+```
+
 
 ถ้าใช้งานระบบที่เป็น Linux ให้เรารันคำสั่งด้านล่างนี้ก่อน
 
@@ -18,3 +28,9 @@ docker-compose up
 เสร็จแล้วให้คัดลอกโฟลเดอร์ `data` ที่เตรียมไว้ข้างนอกสุด เข้ามาใส่ในโฟลเดอร์ `dags` เพื่อที่ Airflow จะได้เห็นไฟล์ข้อมูลเหล่านี้ แล้วจึงค่อยทำโปรเจคต่อ
 
 **หมายเหตุ:** จริง ๆ แล้วเราสามารถเอาโฟลเดอร์ `data` ไว้ที่ไหนก็ได้ที่ Airflow ที่เรารันเข้าถึงได้ แต่เพื่อความง่ายสำหรับโปรเจคนี้ เราจะนำเอาโฟลเดอร์ `data` ไว้ในโฟลเดอร์ `dags` เลย
+
+## config Airflow
+ เข้า Airflow แล้ว login
+ จากนั้นให้ไปที่ tab admin เลือก  connection
+ และเพิ่ม connection
+ <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/05-creating-and-scheduling-data-pipelines/Screenshot22.png" height="700" width="1000" >
