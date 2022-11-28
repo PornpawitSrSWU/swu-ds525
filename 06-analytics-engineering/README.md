@@ -65,4 +65,8 @@ To view docs (on Gitpod)
 ```sh
 dbt docs generate
 dbt docs serve --no-browser
+
 ```
+
+## Lineage graph
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/06-analytics-engineering/1.jpg" height="700" width="1000" >
