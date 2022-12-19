@@ -1,122 +1,57 @@
 import psycopg2
-from pyspark import SparkConf, SparkContext
-from pyspark.sql import SparkSession
 
-def sparks3toredshift():
-       #configure pyspark environment
-    myconf = (SparkConf()\
-        .setMaster("spark://<master_ip_instance>:7077")\
-        .setAppName("pysparks3toredshift")\
-        .set("spark.executor.memory","2g"))
-
-    myconf.set("spark.driver.memory","1g")
-    #set the jar packages to include on the Spark driver and executor classpaths
-    myconf.set("spark.jars.packages","com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.45.1069,com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-auth:2.7.4,org.apache.hadoop:hadoop-common:2.7.4,com.google.code.findbugs:jsr305:3.0.2,asm:asm:3.2,org.slf4j:slf4j-api:1.7.30,org.xerial.snappy:snappy-java:1.1.7.5,org.slf4j:slf4j-log4j12:1.7.30,org.apache.hadoop:hadoop-aws:2.7.3")
-    myconf.set("spark.executor.extraJavaOptions","-Dcom.amazonaws.services.s3.enableV4=true")
-    myconf.set("spark.driver.extraJavaOptions","-Dcom.amazonaws.services.s3.enableV4=true")
-
-    #set up SparkContext
-    sc = SparkContext(conf = myconf)
-    sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
-    
-    #Redshift JDBC driver requires hadoop configuration (S3a method)
-    hadoopConf = sc._jsc.hadoopConfiguration()
-    hadoopConf.set("fs.s3a.access.key", "xxx")
-    hadoopConf.set("fs.s3a.secret.key", "xxxxx")
-    hadoopConf.set("fs.s3a.endpoint", "xxxxxx.amazonaws.com")
-    hadoopConf.set("com.amazonaws.services.s3.enableV4", "true")
-    hadoopConf.set("fs.s3a.impl","org.apache.hadoop.fs.s3a.S3AFileSystem")
-
-    #set up SparkSession
-    spark_session = SparkSession(sc)
-    
-    #read s3 data as dataframe
-    df = spark_session.read.option("header",True).csv("s3a://mybucket-test2/users_info/user_info.csv")
-
-    df.createOrReplaceTempView("dftemp")
-
-    df_join = spark_session.sql("SELECT A.client_id, A.username, A.city, A.country, A.phone, A.sales, A.purchase, (B.price * A.purchase) AS cost, B.currency FROM df5temp A LEFT JOIN df4temp B ON A.country=B.country")
-    
-    #write data to redshift
-    df_join.write \
-        .format("jdbc") \
-        .option("url","jdbc:redshift://xxxxxx.redshift.amazonaws.com:5439/mydatabase") \
-        .option("dbtable","myredshiftschema.myredshifttable00") \
-        .option("UID","xxxx") \
-        .option("PWD","xxxxx") \
-        .option("driver","com.amazon.redshift.jdbc42.Driver") \
-        .mode("append") \
-        .save()
+import boto3
 
 
+aws_access_key_id = "ASIAW5OU4XNTULXUTEC5"
+aws_secret_access_key = "2McteWugfy8xsoS5YDcHkF2WsguaJlLrGFlhok7s"
+aws_session_token = "FwoGZXIvYXdzEDAaDGPSuXGkYBuEl3bZsyLKAYsWfrFl5udebt56V3uKS3yFqKSQDNpNP07BvJ57xgqYlGw6W5yFcss1+PXlRYqcXZkWa5VUzIQVsxjUY5U0Mp9RZ6Idx+kSZvBkQNBY3F1w4sZd6CNXiDbIlI0rnYNGP50Zu/wg1XWe59rqW4PllYsgbYVYOTIemTKwjjcgwyEjt+Vs5TY1b1grNb9YHpJK/tGJE0Y95Y6yn3S1qgljyGkwBphdTC/KenOKuyUajjPr63ggSdyup8X+ATkIAqoR67frKTfntXIrrkUo0JKAnQYyLUqbAvBnWZyoCGOG+wlGDU9fDqZl3lY5dLKHkBDo0wrYR3SrxpnabZaxquSB4w=="
+
+
+s3 = boto3.resource(
+    "s3",
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+    aws_session_token=aws_session_token
+
+)
+s3.meta.client.upload_file("Pizza_.csv", 'pizzasaleproject', 'Pizza_.csv')
 
 drop_table_queries = [ """
-    DROP TABLE IF EXISTS top10pizzabyyear;
-    DROP TABLE IF EXISTS top10pizzabymonth;
-    DROP TABLE IF EXISTS top10pizzabybesttimesale;
-    DROP TABLE IF EXISTS 10badpizza;
+    DROP TABLE IF EXISTS pizzasale;
     """
 ]
 create_table_queries = [
-    """
-    CREATE TABLE IF NOT EXISTS events_top
-    (
-        type text,
-        number_of_events int,
-        PRIMARY KEY (
-            type,number_of_events
-        )
-    );
-    """
-    ,
-    """
-    CREATE TABLE IF NOT EXISTS top10pizzabyyear (
-        pizza_name text,
-        number_of_sales int,
-        year int,
-        PRIMARY KEY (
-            pizza_name, year, number_of_sales
-        )
-    );
-    """,
     
     """
-    CREATE TABLE IF NOT EXISTS top10pizzabymonth (
-        pizza_name text,
-        number_of_sales int,
-        month int,
-        PRIMARY KEY (
-            pizza_name, month, number_of_sales
-        )
-    )
-    """,
+    CREATE TABLE IF NOT EXISTS pizzasale (
+        order_detail_id int,
+        order_id int,
+        pizza_id text,
+        quantity int,
+        order_date date,
+        order_time time,
+        unit_price float,
+        total_price float,
+        pizza_size text,
+        pizza_category text,
+        pizza_ingredients text,
+        pizza_name text
+        
+    );
     """
-    CREATE TABLE IF NOT EXISTS top10pizzabybesttimesale (
-        pizza_name text,
-        number_of_sales int,
-        time text,
-        PRIMARY KEY (
-            pizza_name, time, number_of_sales
-        )
-    )
-    """,
-    """
-     CREATE TABLE IF NOT EXISTS 10badpizza (
-        pizza_name text,
-        number_of_sales text,
-        PRIMARY KEY (
-            pizza_name, number_of_sales
-        )
-    )""",
 
 ]
 copy_table_queries = [
     """
-    COPY staging_events FROM 's3://pornpawitslab3/github_events_01.json'
-    CREDENTIALS 'aws_iam_role=arn:aws:iam::475577236327:role/LabRole'
-    JSON 's3://pornpawitslab3/events_json_path.json'
+    COPY pizzasale FROM 's3://pizzasaleproject/Pizza Sales.csv'
+    ACCESS_KEY_ID 'ASIAW5OU4XNTULXUTEC5'
+    SECRET_ACCESS_KEY '2McteWugfy8xsoS5YDcHkF2WsguaJlLrGFlhok7s'
+    SESSION_TOKEN 'FwoGZXIvYXdzEDAaDGPSuXGkYBuEl3bZsyLKAYsWfrFl5udebt56V3uKS3yFqKSQDNpNP07BvJ57xgqYlGw6W5yFcss1+PXlRYqcXZkWa5VUzIQVsxjUY5U0Mp9RZ6Idx+kSZvBkQNBY3F1w4sZd6CNXiDbIlI0rnYNGP50Zu/wg1XWe59rqW4PllYsgbYVYOTIemTKwjjcgwyEjt+Vs5TY1b1grNb9YHpJK/tGJE0Y95Y6yn3S1qgljyGkwBphdTC/KenOKuyUajjPr63ggSdyup8X+ATkIAqoR67frKTfntXIrrkUo0JKAnQYyLUqbAvBnWZyoCGOG+wlGDU9fDqZl3lY5dLKHkBDo0wrYR3SrxpnabZaxquSB4w=='
+    CSV
+    IGNOREHEADER 1
     REGION 'us-east-1'
-    """,
+    """
 ]
 insert_table_queries = [
         """
@@ -165,7 +100,7 @@ def insert_tables(cur, conn):
 
 
 def main():
-    host = "redshift-cluster-1.crjjtklftimj.us-east-1.redshift.amazonaws.com"
+    host = "pizzasaleclus.crjjtklftimj.us-east-1.redshift.amazonaws.com"
     dbname = "dev"
     user = "awsuser"
     password = "Wer121137"
@@ -174,17 +109,54 @@ def main():
     conn = psycopg2.connect(conn_str)
     cur = conn.cursor()
 
-    drop_tables(cur, conn)
-    create_tables(cur, conn)
-    load_staging_tables(cur, conn)
+    drop_table_query = "DROP TABLE IF EXISTS pizzasale"
+    cur.execute(drop_table_query)
+    conn.commit()
 
-    insert_tables(cur, conn)
+    create_table_queries = """
+    CREATE TABLE IF NOT EXISTS pizzasale (
+        order_detail_id int,
+        order_id int,
+        pizza_id text,
+        quantity int,
+        order_date DATE,
+        order_time TIME,
+        unit_price float,
+        total_price float,
+        pizza_size text,
+        pizza_category text,
+        pizza_ingredients text,
+        pizza_name text
+        
+    )
+    """
+    cur.execute(create_table_queries)
+    conn.commit()
 
-    query = "select * from events"
-    cur.execute(query)
-    records = cur.fetchall()
-    for row in records:
-        print(row)
+    copy_table_queries = """
+    COPY pizzasale FROM 's3://pizzasaleproject/Pizza_.csv'
+    ACCESS_KEY_ID 'ASIAW5OU4XNTULXUTEC5'
+    SECRET_ACCESS_KEY '2McteWugfy8xsoS5YDcHkF2WsguaJlLrGFlhok7s'
+    SESSION_TOKEN 'FwoGZXIvYXdzEDAaDGPSuXGkYBuEl3bZsyLKAYsWfrFl5udebt56V3uKS3yFqKSQDNpNP07BvJ57xgqYlGw6W5yFcss1+PXlRYqcXZkWa5VUzIQVsxjUY5U0Mp9RZ6Idx+kSZvBkQNBY3F1w4sZd6CNXiDbIlI0rnYNGP50Zu/wg1XWe59rqW4PllYsgbYVYOTIemTKwjjcgwyEjt+Vs5TY1b1grNb9YHpJK/tGJE0Y95Y6yn3S1qgljyGkwBphdTC/KenOKuyUajjPr63ggSdyup8X+ATkIAqoR67frKTfntXIrrkUo0JKAnQYyLUqbAvBnWZyoCGOG+wlGDU9fDqZl3lY5dLKHkBDo0wrYR3SrxpnabZaxquSB4w=='
+    CSV
+    IGNOREHEADER 1
+    REGION 'us-east-1'
+    """
+    cur.execute(copy_table_queries)
+    conn.commit()
+
+
+    #drop_tables(cur, conn)
+    #create_tables(cur, conn)
+    #load_staging_tables(cur, conn)
+
+    #insert_tables(cur, conn)
+
+    #query = "select * from events"
+    #cur.execute(query)
+    #records = cur.fetchall()
+    #for row in records:
+    #    print(row)
 
     conn.close()
 
