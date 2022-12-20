@@ -8,16 +8,24 @@ from airflow import DAG
 from airflow.utils import timezone
 from airflow.operators.python import PythonOperator
 
+host = "pizzasaleclus.crjjtklftimj.us-east-1.redshift.amazonaws.com"
+dbname = "dev"
+user = "awsuser"
+password = "Wer121137"
+port = "5439"
+conn_str = f"host={host} dbname={dbname} user={user} password={password} port={port}"
+conn = psycopg2.connect(conn_str)
+cur = conn.cursor()
 
 def _get_files():
     df = pd.read_csv("/opt/airflow/dags/data/Pizza.csv")
     df['order_date'] = pd.to_datetime(df.order_date)
-    df.to_csv("/opt/airflow/dags/data/output.csv", sep=',')
+    df.to_csv("/opt/airflow/dags/data/output.csv", sep=',', index=False)
 
 def _upload_files():
-    aws_access_key_id = "ASIAW5OU4XNT2JA5NTVZ"
-    aws_secret_access_key = "zC/tASLCH80biquot5C8ZTj5xkAWzOGAPNrbv3mY"
-    aws_session_token = "FwoGZXIvYXdzEDwaDHRn0pff3M9rnZrmCCLKAYcdQJ9DYkQaczKBFKlFB57ctSGR2yFw8QwOgAzQ/i/5yamlYftZtMlvcWouEdm8/nlHy1JueIxMz090rFiA8rUYmzQvUTKoKeH8la0cVG/wEswqH9/V20nI4Qg/dkfHV8yLvUsgdaKn+H5Mo7naRMwCheBo/cbsEsecgE4YyQoCq+HOG46TML+OUqSPyDsXoSr7zF1f0XILRT0y0f6cBskLaEIBq4V0r8UPBbn02cZnt2zFzJraTazKcC2QBngDTH8p/NhROuq9ca0omuaCnQYyLT0hHRrlib/MuM0QUSdaDRrgJ0KpH4/BGrP/CApJjPJufcM0PqV2GCXftNPjvw=="
+    aws_access_key_id = "ASIAW5OU4XNT2CEQJUKP"
+    aws_secret_access_key = "FRyKna6gMUkIdnIk4bBJQya3Q3iK622TeWJEw7uL"
+    aws_session_token = "FwoGZXIvYXdzEEQaDLBty3MVKWj7OA1MMSLKAdy2p1K6TGuCwLh+K/qvlLpnAr9uKViW5I+sBd2FjXTkvbTD+Lmsr/3uMn/Dn8v+AhycNc+DFDEXuQg0pupOENtZhVz1a2K9+eUPkoD/HlA+hgFHPmwsnvZ5zMskt+39M6H01NDRtB78oHyBkAxeSQcIgRAHhZNF7HnRQumebAB1+Ltd1aAhYad/SqIPpv92gh6tRVe6dgicxJpVgCElumTHZWlxZEkMLUwJuUozIRJEF+dAyg1iKxvAOUxm89TvBd9r2fXoIncDkV0ox7yEnQYyLa6tXAcp2QiILclghGFz6hL+D5ZV3uJObRokU60j3ZzPKtKU/1w3K7ssh1jx2Q=="
 
     s3 = boto3.resource(
         "s3",
@@ -26,19 +34,12 @@ def _upload_files():
         aws_session_token=aws_session_token
 
     )
-    s3.meta.client.upload_file("/opt/airflow/dags/data/Pizza_.csv", 'pizzasaleproject', 'output.csv')
+    s3.meta.client.upload_file("/opt/airflow/dags/data/output.csv", 'pizzasaleproject', 'output.csv')
 
 
 
 def _create_tables():
-    host = "pizzasaleclus.crjjtklftimj.us-east-1.redshift.amazonaws.com"
-    dbname = "dev"
-    user = "awsuser"
-    password = "Wer121137"
-    port = "5439"
-    conn_str = f"host={host} dbname={dbname} user={user} password={password} port={port}"
-    conn = psycopg2.connect(conn_str)
-    cur = conn.cursor()
+
 
     drop_table_query = "DROP TABLE IF EXISTS pizzasale"
     cur.execute(drop_table_query)
@@ -46,6 +47,7 @@ def _create_tables():
 
     create_table_queries = """
     CREATE TABLE IF NOT EXISTS pizzasale (
+        
         order_details_id int,
         order_id int,
         pizza_id text,
@@ -67,9 +69,9 @@ def _create_tables():
 def _insert_data():
     copy_table_queries = """
     COPY pizzasale FROM 's3://pizzasaleproject/output.csv'
-    ACCESS_KEY_ID 'ASIAW5OU4XNT2JA5NTVZ'
-    SECRET_ACCESS_KEY 'zC/tASLCH80biquot5C8ZTj5xkAWzOGAPNrbv3mY'
-    SESSION_TOKEN 'FwoGZXIvYXdzEDwaDHRn0pff3M9rnZrmCCLKAYcdQJ9DYkQaczKBFKlFB57ctSGR2yFw8QwOgAzQ/i/5yamlYftZtMlvcWouEdm8/nlHy1JueIxMz090rFiA8rUYmzQvUTKoKeH8la0cVG/wEswqH9/V20nI4Qg/dkfHV8yLvUsgdaKn+H5Mo7naRMwCheBo/cbsEsecgE4YyQoCq+HOG46TML+OUqSPyDsXoSr7zF1f0XILRT0y0f6cBskLaEIBq4V0r8UPBbn02cZnt2zFzJraTazKcC2QBngDTH8p/NhROuq9ca0omuaCnQYyLT0hHRrlib/MuM0QUSdaDRrgJ0KpH4/BGrP/CApJjPJufcM0PqV2GCXftNPjvw=='
+    ACCESS_KEY_ID 'ASIAW5OU4XNT2CEQJUKP'
+    SECRET_ACCESS_KEY 'FRyKna6gMUkIdnIk4bBJQya3Q3iK622TeWJEw7uL'
+    SESSION_TOKEN 'FwoGZXIvYXdzEEQaDLBty3MVKWj7OA1MMSLKAdy2p1K6TGuCwLh+K/qvlLpnAr9uKViW5I+sBd2FjXTkvbTD+Lmsr/3uMn/Dn8v+AhycNc+DFDEXuQg0pupOENtZhVz1a2K9+eUPkoD/HlA+hgFHPmwsnvZ5zMskt+39M6H01NDRtB78oHyBkAxeSQcIgRAHhZNF7HnRQumebAB1+Ltd1aAhYad/SqIPpv92gh6tRVe6dgicxJpVgCElumTHZWlxZEkMLUwJuUozIRJEF+dAyg1iKxvAOUxm89TvBd9r2fXoIncDkV0ox7yEnQYyLa6tXAcp2QiILclghGFz6hL+D5ZV3uJObRokU60j3ZzPKtKU/1w3K7ssh1jx2Q=='
     CSV
     IGNOREHEADER 1
     REGION 'us-east-1'
