@@ -169,11 +169,11 @@ password = "Wer121137"
 port = "5439"
 ```
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="400" width="500">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="450" width="500">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau.png" height="700" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau.png" height="500" width="1050">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash.png" height="700" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash.png" height="450" width="1050">
 <br>
 
 ## And finally do not forget to shutdown
