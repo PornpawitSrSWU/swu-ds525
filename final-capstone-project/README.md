@@ -2,10 +2,10 @@
 
 
 ## Data modelling: Data lake
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datalake.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datalake.png" height="750" width="500" >
 
 ## Data modelling: Data warehouse
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datalake.png" height="700" width="1000" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datalake.png" height="750" width="500" >
 
 ## Getting Started
 
