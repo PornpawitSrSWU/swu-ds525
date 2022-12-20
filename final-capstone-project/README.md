@@ -7,6 +7,12 @@
 ## Data modelling: Data warehouse
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datawarehouse.png" height="700" width="1050" >
 
+## Project Documentation
+[Documentation link](https://github.com/)
+
+## Project Presentation
+[Presentation link](https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Doc/Presentation.pdf)
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/Presentation.png" height="800" width="1150" >
 ## Getting Started
 
 ```sh
