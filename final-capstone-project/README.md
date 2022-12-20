@@ -30,6 +30,7 @@ $ cat ~/.aws/credentials
 - aws_session_token <br>
 
 AWS credential is used in etl.py file
+<br>
 
 ```sh
 def _upload_files():
@@ -52,30 +53,64 @@ def _insert_data():
     conn.commit()
 ```
 
-### 2. Change directory
+### 2. Create data lake (S3)
+Create for Your RAW data <br>
+and uncheck "Block all public access"  <br>
+
+### 3. Create Data warehouse (Redshift)
+Create for Your clearned data <br>
+change "Edit publicly accessible  Block all public access" to check  <br>
+and Redshift cluster is used in etl file <br>
+```sh
+host = "pizzasaleclus.crjjtklftimj.us-east-1.redshift.amazonaws.com"
+dbname = "dev"
+user = "awsuser"
+password = "Wer121137"
+port = "5439"
+conn_str = f"host={host} dbname={dbname} user={user} password={password} port={port}"
+conn = psycopg2.connect(conn_str)
+cur = conn.cursor()
+```
+### 4. Change directory
 ```sh
 cd final-capstone-project
 ```
-
+### 5.Create virtual environment "ENV"
 ```sh
-python -m venv ENV
-source ENV/bin/activate
-pip install -r requirements.txt
+$ python -m venv ENV
 ```
 
-### Prerequisite when install psycopg2 package
+### 6. Activate the visual environment
+```sh
+$ source ENV/bin/activate
+```
+### 7. Install libraries from requirement.txt
+```sh
+$ pip install -r requirements.txt
+```
+### 8. Prepare environment workspace thru Docker:
 
-For Debian/Ubuntu users:
+If Linux system, run following commands (for Airflow usage)<br>
 
 ```sh
-sudo apt install -y libpq-dev
+mkdir -p ./dags ./logs ./plugins
 ```
-
-For Mac users:
+```sh
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+```
+<br> After that, run below command to start Docker <br>
 
 ```sh
-brew install postgresql
+docker-compose up
 ```
+### 9. Set connection in Airflow
+Access Airflow UI by port 8080 (localhost:8080) with below credential<br>
+- Username: "airflow"<br>
+- Password: "airflow"<br>
+click on Connection menu and set following this picture <br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/airflow.png" height="700" width="1050">
+
+
 
 ## Running Postgres
 
