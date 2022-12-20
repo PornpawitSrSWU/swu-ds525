@@ -176,6 +176,9 @@ port = "5439"
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash.png" height="450" width="1050">
 <br>
 
+[Presentation link](https://public.tableau.com/shared/JSBGP3WZH?:display_count=n&:origin=viz_share_link)
+
+<br>
 ## And finally do not forget to shutdown
 -  Stop services by shutdown Docker <br>
 ```sh
