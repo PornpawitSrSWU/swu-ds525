@@ -5,7 +5,7 @@
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datalake.png" height="500" width="250" center >
 
 ## Data modelling: Data warehouse
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datawarehouse.png" height="500" width="750" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/datawarehouse.png" height="700" width="1050" >
 
 ## Getting Started
 
