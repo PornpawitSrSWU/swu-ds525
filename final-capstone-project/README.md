@@ -108,32 +108,76 @@ Access Airflow UI by port 8080 (localhost:8080) with below credential<br>
 - Username: "airflow"<br>
 - Password: "airflow"<br>
 click on Connection menu and set following this picture <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/airflow.png" height="700" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/airflow.png" height="600" width="1050">
 
-
-
-## Running Postgres
+### 9. Create DBT Project for create table for analytic
+- Create a dbt project <br>
+```sh
+dbt init
+```
+<br>
+- Edit the dbt profiles
+```sh
+dbt init
+```
+<br>
+-Test dbt connection
+```sh
+cd trydbredshift
+```
+```sh
+dbt debug
+```
+<br>
+- You should see "All checks passed!".<br>
+- Create your model at trydbredshift/models<br>
+- To create models
 
 ```sh
-docker-compose up
+dbt run
 ```
+<br>
+- To test models <br>
 
-To shutdown, press Ctrl+C and run:
+```sh
+dbt test
+```
+<br>
+- To view docs (on Gitpod)
+```sh
+dbt docs generate
+dbt docs serve
+```
+<br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/lineg.png" height="600" width="1050">
 
+
+## 10. Create Dashboard by Tableau:
+
+- Connect Tableau Desktop to Redshift by following information <br>
+```sh
+host = "pizzasaleclus.crjjtklftimj.us-east-1.redshift.amazonaws.com"
+dbname = "dev"
+user = "awsuser"
+password = "Wer121137"
+port = "5439"
+```
+<br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="600" width="1050">
+<br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table.png" height="600" width="1050">
+<br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table_dash.png" height="600" width="1050">
+<br>
+
+## And finally do not forget to shutdown
+-  Stop services by shutdown Docker <br>
 ```sh
 docker-compose down
 ```
-## Create Table
-
-Run create_tables.py file to create tables
-
-```sh
-python create_tables.py
-```
-## Insert data from data folder to tables
-
-Run etl.py file to insert data
+<br>
+- Deactivate the virtual environment <br>
 
 ```sh
-python etl.py
+$ deactivate
 ```
