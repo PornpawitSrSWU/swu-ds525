@@ -24,6 +24,10 @@ $ cat ~/.aws/credentials
 ```
 <br>
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/credential.png" height="150" width="900" center >
+<br>
+- aws_access_key_id
+- aws_secret_access_key
+- aws_session_token
 
 ### 2. Change directory
 ```sh
