@@ -29,6 +29,29 @@ $ cat ~/.aws/credentials
 - aws_secret_access_key <br>
 - aws_session_token <br>
 
+AWS credential is used in etl.py file
+
+```sh
+def _upload_files():
+    aws_access_key_id = "your aws_access_key_id"
+    aws_secret_access_key = "your aws_secret_access_key"
+    aws_session_token = "your aws_session_token"
+```
+```sh
+def _insert_data():
+    copy_table_queries = """
+    COPY pizzasale FROM 's3://Your bucket/output.csv'
+    ACCESS_KEY_ID 'your aws_access_key_id'
+    SECRET_ACCESS_KEY 'your aws_secret_access_key'
+    SESSION_TOKEN 'your aws_session_token'
+    CSV
+    IGNOREHEADER 1
+    REGION 'us-east-1'
+    """
+    cur.execute(copy_table_queries)
+    conn.commit()
+```
+
 ### 2. Change directory
 ```sh
 cd final-capstone-project
