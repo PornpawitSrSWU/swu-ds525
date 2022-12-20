@@ -173,10 +173,10 @@ port = "5439"
 <br>
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau.png" height="500" width="1050">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash.png" height="450" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash1.png" height="450" width="1050">
 <br>
 
-[Presentation link](https://public.tableau.com/shared/JSBGP3WZH?:display_count=n&:origin=viz_share_link)
+[Dashboard link](https://public.tableau.com/shared/JSBGP3WZH?:display_count=n&:origin=viz_share_link)
 
 <br>
 ## And finally do not forget to shutdown
