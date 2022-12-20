@@ -116,16 +116,19 @@ click on Connection menu and set following this picture <br>
 dbt init
 ```
 <br>
-- Edit the dbt profiles<br>
+- Edit the dbt profiles <br>
+
 ```sh
 code ~/.dbt/profiles.yml
 ```
+
 <br>
 -Test dbt connection <br>
 
 ```sh
 cd trydbredshift
 ```
+
 <br>
 
 ```sh
@@ -134,7 +137,8 @@ dbt debug
 <br>
 - You should see "All checks passed!".<br>
 - Create your model at trydbredshift/models<br>
-- To create models
+- To create models 
+
 <br>
 
 ```sh
@@ -168,11 +172,11 @@ password = "Wer121137"
 port = "5439"
 ```
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="400" width="250">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="350" width="500">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table.png" height="400" width="250">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau.png" height="350" width="500">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table_dash.png" height="400" width="250">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_dash.png" height="350" width="500">
 <br>
 
 ## And finally do not forget to shutdown
