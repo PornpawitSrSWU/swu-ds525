@@ -13,7 +13,7 @@
 ## Project Presentation
 [Presentation link](https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Doc/Presentation.pdf)
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/Presentation.png" height="800" width="1150" >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/Presentation.png" height="800" width="1200" >
 ## Getting Started
 
 ```sh
