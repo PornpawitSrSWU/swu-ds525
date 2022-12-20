@@ -108,7 +108,7 @@ Access Airflow UI by port 8080 (localhost:8080) with below credential<br>
 - Username: "airflow"<br>
 - Password: "airflow"<br>
 click on Connection menu and set following this picture <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/airflow.png" height="600" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/airflow.png" height="500" width="1050">
 
 ### 9. Create DBT Project for create table for analytic
 - Create a dbt project <br>
@@ -116,15 +116,18 @@ click on Connection menu and set following this picture <br>
 dbt init
 ```
 <br>
-- Edit the dbt profiles
+- Edit the dbt profiles<br>
 ```sh
-dbt init
+code ~/.dbt/profiles.yml
 ```
 <br>
--Test dbt connection
+-Test dbt connection <br>
+
 ```sh
 cd trydbredshift
 ```
+<br>
+
 ```sh
 dbt debug
 ```
@@ -132,10 +135,12 @@ dbt debug
 - You should see "All checks passed!".<br>
 - Create your model at trydbredshift/models<br>
 - To create models
+<br>
 
 ```sh
 dbt run
 ```
+
 <br>
 - To test models <br>
 
@@ -163,11 +168,11 @@ password = "Wer121137"
 port = "5439"
 ```
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="600" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/tableau_con.png" height="400" width="250">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table.png" height="600" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table.png" height="400" width="250">
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table_dash.png" height="600" width="1050">
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/table_dash.png" height="400" width="250">
 <br>
 
 ## And finally do not forget to shutdown
