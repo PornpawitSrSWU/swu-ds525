@@ -23,7 +23,7 @@ GET your credential on AWS terminal
 $ cat ~/.aws/credentials
 ```
 <br>
-<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/credential.png" height="300" width="400" center >
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/credential.png" height="150" width="900" center >
 
 ### 2. Change directory
 ```sh
