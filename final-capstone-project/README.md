@@ -14,7 +14,21 @@
 [Presentation link](https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Doc/Presentation.pdf)
 <br>
 <img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/Presentation.png" height="700" width="1200" >
-## Getting Started
+
+## Project implement
+
+### 1. Prepare your AWS access
+GET your credential on AWS terminal
+```sh
+$ cat ~/.aws/credentials
+```
+<br>
+<img src="https://github.com/PornpawitSrSWU/swu-ds525/blob/main/final-capstone-project/Pic/credential.png" height="300" width="400" center >
+
+### 2. Change directory
+```sh
+cd final-capstone-project
+```
 
 ```sh
 python -m venv ENV
